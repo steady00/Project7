@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_instruktur"
+            android:icon="@drawable/info"
+            android:title="Instruktur" />
+        <item
+            android:id="@+id/nav_peserta"
+            android:icon="@drawable/info"
+            android:title="Peserta" />
+        <item
+            android:id="@+id/nav_materi"
+            android:icon="@drawable/info"
+            android:title="Materi" />
+        <item
+            android:id="@+id/nav_kelas"
+            android:icon="@drawable/phone"
+            android:title="Kelas" />
+        <item
+            android:id="@+id/nav_contact_us"
+            android:icon="@drawable/phone"
+            android:title="Contact Us" />
+        <item
+            android:id="@+id/nav_about_us"
+            android:icon="@drawable/info"
+            android:title="About Us" />
+    </group>
+</menu>
