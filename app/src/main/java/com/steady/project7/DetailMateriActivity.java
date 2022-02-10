@@ -151,7 +151,7 @@ public class DetailMateriActivity extends AppCompatActivity implements View.OnCl
                 loading.dismiss();
                 Toast.makeText(DetailMateriActivity.this,
                         "pesan: " + message, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(DetailMateriActivity.this, MateriFragment.class));
+                startActivity(new Intent(DetailMateriActivity.this, MainActivity.class).putExtra("keyName", "materi"));
                 //System.exit(1);
             }
         }
@@ -192,9 +192,7 @@ public class DetailMateriActivity extends AppCompatActivity implements View.OnCl
                 loading.dismiss();
                 Toast.makeText(DetailMateriActivity.this,
                         "pesan: " + message, Toast.LENGTH_SHORT).show();
-                // redirect ke LihatDataActivity
-                //System.exit(1);
-                startActivity(new Intent(DetailMateriActivity.this, MateriFragment.class));
+                startActivity(new Intent(DetailMateriActivity.this, MainActivity.class).putExtra("keyName", "materi"));
             }
         }
         UpdateDataPegawai updateDataPegawai = new UpdateDataPegawai();

@@ -26,6 +26,7 @@ import com.steady.project7.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private ActionBarDrawerToggle toggle;
+    String myStr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,64 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Home");
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, new HomeFragment()).commit();
         binding.navView.setCheckedItem(R.id.nav_home);
+        //set menu
+        Intent intent = getIntent();
+        Bundle extras = intent.getExtras();
+        Fragment fragment = null;
+        myStr = "home";
+        if(extras != null)
+            if(extras != null){
+                myStr = extras.getString("keyName");
+            } else {
+                myStr = "home";
+            }
 
+        switch (myStr){
+            case "home":
+                //default fragment dibuka pertama kali
+                getSupportActionBar().setTitle("Home");
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.frameLayout, new HomeFragment())
+                        .commit();
+                binding.navView.setCheckedItem(R.id.nav_home);
+                break;
+            case "instruktur":
+                getSupportActionBar().setTitle("Instruktur");
+                fragment = new InstrukturFragment();
+                binding.drawer.closeDrawer(GravityCompat.START);
+                callFragment(fragment);
+                binding.navView.setCheckedItem(R.id.nav_instruktur);
+                break;
+            case "materi":
+                getSupportActionBar().setTitle("Materi");
+                fragment = new MateriFragment();
+                binding.drawer.closeDrawer(GravityCompat.START);
+                callFragment(fragment);
+                binding.navView.setCheckedItem(R.id.nav_materi);
+                break;
+            case "peserta":
+                getSupportActionBar().setTitle("Peserta");
+                fragment = new PesertaFragment();
+                binding.drawer.closeDrawer(GravityCompat.START);
+                callFragment(fragment);
+                binding.navView.setCheckedItem(R.id.nav_peserta);
+                break;
+            case "kelas":
+                getSupportActionBar().setTitle("Kelas");
+                fragment = new KelasFragment();
+                binding.drawer.closeDrawer(GravityCompat.START);
+                callFragment(fragment);
+                binding.navView.setCheckedItem(R.id.nav_kelas);
+                break;
+            case "detail kelas":
+                getSupportActionBar().setTitle("Detail Kelas");
+                fragment = new KelasDetailFragment();
+                binding.drawer.closeDrawer(GravityCompat.START);
+                callFragment(fragment);
+                binding.navView.setCheckedItem(R.id.nav_kelas_detail);
+                break;
+        }
         // membuka drawer
         toggle = new ActionBarDrawerToggle(this, binding.drawer, binding.toolbar, R.string.open, R.string.close);
 
@@ -97,25 +155,19 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_materi:
                         fragment = new MateriFragment();
-                        getSupportActionBar().setTitle("Daftar Materi Pelajaran");
+                        getSupportActionBar().setTitle("Daftar Materi");
                         binding.drawer.closeDrawer(GravityCompat.START);
                         callFragment(fragment);
                         break;
                     case R.id.nav_kelas:
                         fragment = new KelasFragment();
-                        getSupportActionBar().setTitle("Kelas");
+                        getSupportActionBar().setTitle("Daftar Kelas");
                         binding.drawer.closeDrawer(GravityCompat.START);
                         callFragment(fragment);
                         break;
-                    case R.id.nav_contact_us:
-                        fragment = new ContactUsFragment();
-                        getSupportActionBar().setTitle("Contact Us");
-                        binding.drawer.closeDrawer(GravityCompat.START);
-                        callFragment(fragment);
-                        break;
-                    case R.id.nav_about_us:
-                        fragment = new AboutUsFragment();
-                        getSupportActionBar().setTitle("About Us");
+                    case R.id.nav_kelas_detail:
+                        fragment = new KelasDetailFragment();
+                        getSupportActionBar().setTitle("Kelas Detail");
                         binding.drawer.closeDrawer(GravityCompat.START);
                         callFragment(fragment);
                         break;

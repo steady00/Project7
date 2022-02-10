@@ -17,7 +17,9 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.steady.project7.databinding.ActivityMainBinding;
 
 import org.json.JSONArray;
@@ -26,17 +28,21 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class PesertaFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class PesertaFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
+
 
     //private ActivityMainBinding binding;
     private ListView list_view_peserta;
     private String JSON_STRING;
+    FloatingActionButton floatingActionButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_peserta, container, false);
         list_view_peserta = view.findViewById(R.id.list_view_peserta);
         list_view_peserta.setOnItemClickListener(this);
+        floatingActionButton = view.findViewById(R.id.btn_add_peserta);
+        floatingActionButton.setOnClickListener(this);
         getJSON();
 
         return view;
@@ -125,8 +131,14 @@ public class PesertaFragment extends Fragment implements AdapterView.OnItemClick
     }
 
     @Override
+    public void onClick(View view) {
+        Toast.makeText(getActivity(), "Tambahkan Peserta", Toast.LENGTH_SHORT).show();/*Intent myIntent = new Intent(getActivity(), TambahPesertaActivity.class);
+        startActivity(myIntent);*/
+        startActivity(new Intent(getActivity(), TambahPesertaActivity.class));
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 }

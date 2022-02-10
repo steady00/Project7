@@ -18,7 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.steady.project7.databinding.ActivityMainBinding;
 
 import org.json.JSONArray;
@@ -28,16 +30,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class MateriFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class MateriFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
     //private ActivityMainBinding binding;
     private ListView list_view_materi;
     private String JSON_STRING;
+    FloatingActionButton floatingActionButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_materi, container, false);
         list_view_materi = view.findViewById(R.id.list_view_materi);
         list_view_materi.setOnItemClickListener(this);
+        floatingActionButton = view.findViewById(R.id.btn_add_materi);
+        floatingActionButton.setOnClickListener(this);
 
         getJSON();
 
@@ -135,5 +140,11 @@ public class MateriFragment extends Fragment implements AdapterView.OnItemClickL
         myIntent.putExtra(Konfigurasi.MAT_ID, matid);
         startActivity(myIntent);
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        //Toast.makeText(getActivity(), "Tambahkan Peserta", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getActivity(), TambahMateriActivity.class));
     }
 }

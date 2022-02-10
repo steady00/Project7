@@ -16,7 +16,9 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.steady.project7.databinding.ActivityMainBinding;
 
 import org.json.JSONArray;
@@ -25,16 +27,19 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class KelasFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class KelasFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
     //private ActivityMainBinding binding;
     private ListView list_view_kelas;
     private String JSON_STRING;
+    FloatingActionButton floatingActionButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_kelas, container, false);
         list_view_kelas = view.findViewById(R.id.list_view_kelas);
         list_view_kelas.setOnItemClickListener(this);
+        floatingActionButton = view.findViewById(R.id.btn_add_kelas);
+        floatingActionButton.setOnClickListener(this);
 
         getJSON();
 
@@ -133,5 +138,10 @@ public class KelasFragment extends Fragment implements AdapterView.OnItemClickLi
     public void onDestroyView() {
         super.onDestroyView();
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        Toast.makeText(getActivity(), "Tambahkan Peserta", Toast.LENGTH_SHORT).show();
     }
 }

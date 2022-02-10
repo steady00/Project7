@@ -31,13 +31,13 @@ public class DetailPesertaActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_detail_peserta);
 
 
-        edit_id_peserta = findViewById(R.id.edit_id_instruktur);
-        edit_nama_peserta = findViewById(R.id.edit_nama_instruktur);
-        edit_email_peserta = findViewById(R.id.edit_email_instruktur);
-        edit_hp_peserta = findViewById(R.id.edit_hp_instruktur);
+        edit_id_peserta = findViewById(R.id.edit_id_peserta);
+        edit_nama_peserta = findViewById(R.id.edit_nama_peserta);
+        edit_email_peserta = findViewById(R.id.edit_email_peserta);
+        edit_hp_peserta = findViewById(R.id.edit_hp_peserta);
         edit_ins_peserta = findViewById(R.id.edit_ins_peserta);
-        btn_delete_peserta = findViewById(R.id.btn_delete_instruktur);
-        btn_update_peserta = findViewById(R.id.btn_update_instruktur);
+        btn_delete_peserta = findViewById(R.id.btn_delete_peserta);
+        btn_update_peserta = findViewById(R.id.btn_update_peserta);
 
         Intent receiveIntent = getIntent();
         id = receiveIntent.getStringExtra(Konfigurasi.PST_ID);
@@ -161,8 +161,7 @@ public class DetailPesertaActivity extends AppCompatActivity implements View.OnC
                 loading.dismiss();
                 Toast.makeText(DetailPesertaActivity.this,
                         "pesan: " + message, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(DetailPesertaActivity.this, PesertaFragment.class));
-                //System.exit(1);
+                startActivity(new Intent(DetailPesertaActivity.this, MainActivity.class).putExtra("keyName", "peserta"));
             }
         }
         DeleteDataPegawai deleteDataPegawai = new DeleteDataPegawai();
@@ -208,9 +207,7 @@ public class DetailPesertaActivity extends AppCompatActivity implements View.OnC
                 loading.dismiss();
                 Toast.makeText(DetailPesertaActivity.this,
                         "pesan: " + message, Toast.LENGTH_SHORT).show();
-                // redirect ke LihatDataActivity
-                //System.exit(1);
-                startActivity(new Intent(DetailPesertaActivity.this, PesertaFragment.class));
+                startActivity(new Intent(DetailPesertaActivity.this, MainActivity.class).putExtra("keyName", "peserta"));
             }
         }
         UpdateDataPegawai updateDataPegawai = new UpdateDataPegawai();

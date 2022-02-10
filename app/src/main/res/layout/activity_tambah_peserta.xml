@@ -6,25 +6,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".DetailMateriActivity">
+    tools:context=".TambahPesertaActivity">
 
     <EditText
-        android:id="@+id/edit_id_materi"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:editable="false"
-        android:ems="10"
-        android:enabled="false"
-        android:textSize="24sp"
-        android:textStyle="bold" />
-
-    <EditText
-        android:id="@+id/edit_nama_materi"
+        android:id="@+id/edit_add_nama_peserta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:editable="true"
         android:ems="10"
+        android:hint="Masukkan nama peserta"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edit_add_email_peserta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:editable="true"
+        android:ems="10"
+        android:hint="Masukkan email peserta"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edit_add_hp_peserta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:editable="true"
+        android:ems="10"
+        android:hint="Masukkan no.hp peserta"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edit_add_ins_peserta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:editable="true"
+        android:ems="10"
+        android:hint="Masukkan nama instansi"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -35,19 +55,20 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_update_materi"
+            android:id="@+id/btn_add_peserta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="EDIT" />
+            android:text="TAMBAH PESERTA" />
 
         <Button
-            android:id="@+id/btn_delete_materi"
+            android:id="@+id/btn_lihat_peserta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="DELETE" />
+            android:text="LIHAT PESERTA" />
+
     </LinearLayout>
 </LinearLayout>

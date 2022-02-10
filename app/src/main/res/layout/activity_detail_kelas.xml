@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".DetailPesertaActivity">
+    tools:context=".DetailKelasActivity">
 
     <EditText
         android:id="@+id/edit_id_kelas"

@@ -4,9 +4,9 @@ public class Konfigurasi {
     //url dimana web API berada
     //melihat data
     public static final String URL_ADD_DETAIL_KELAS = "http://192.168.0.6/inixtraining/detail_kelas/tr_add_detail_kelas.php";
-    public static final String URL_GET_ALL_DETAIL_KELAS = "http://192.168.0.6/inixtraining/detail_kelas/tr_datas_detail_kelas.php";
-    public static final String URL_DELETE_DETAIL_KELAS = "http://192.168.0.6/inixtraining/detail_kelas/tr_delete_detail_kelas.php";
-    public static final String URL_DETAIL_ = "http://192.168.0.6/inixtraining/detail_kelas/tr_detail_detail_kelas.php";
+    public static final String URL_GET_ALL_KELAS_DETAIL = "http://192.168.0.6/inixtraining/detail_kelas/tr_datas_detail_kelas.php";
+    public static final String URL_DELETE_KELAS_DETAIL = "http://192.168.0.6/inixtraining/detail_kelas/tr_delete_detail_kelas.php";
+    public static final String URL_DETAIL_KELAS_DETAIL = "http://192.168.0.6/inixtraining/detail_kelas/tr_detail_detail_kelas.php?id_kls=";
 
     public static final String URL_ADD_INSTRUKTUR = "http://192.168.0.6/inixtraining/instruktur/tr_add_instruktur.php";
     public static final String URL_GET_ALL_INSTRUKTUR = "http://192.168.0.6/inixtraining/instruktur/tr_datas_instruktur.php";
@@ -16,7 +16,7 @@ public class Konfigurasi {
 
     public static final String URL_ADD_KELAS = "http://192.168.0.6/inixtraining/kelas/tr_add_kelas.php";
     public static final String URL_GET_ALL_KELAS = "http://192.168.0.6/inixtraining/kelas/tr_datas_kelas.php";
-    public static final String URL_DELETE_KELAS = "http://192.168.0.6/inixtraining/kelas/tr_delete_kelas.php";
+    public static final String URL_DELETE_KELAS = "http://192.168.0.6/inixtraining/kelas/tr_delete_kelas.php?id_kls=";
     public static final String URL_DETAIL_KELAS = "http://192.168.0.6/inixtraining/kelas/tr_detail_kelas.php?id_kls=";
     public static final String URL_UPDATE_KELAS = "http://192.168.0.6/inixtraining/kelas/tr_update_kelas.php";
 
@@ -58,6 +58,15 @@ public class Konfigurasi {
     public static final String TAG_JSON_ID_MAT = "id_mat";
     public static final String TAG_JSON_NAMA_MAT = "nama_mat";
 
+    //flag JSON Kelas Detail
+    public static final String TAG_JSON_ID_KELAS_KLS_DETAIL = "id_kls";
+    public static final String TAG_JSON_MATERI_KLS_DETAIL = "nama_mat";
+    public static final String TAG_JSON_JUMLAH_PST = "jum_pst";
+
+    public static final String TAG_JSON_ID_KELAS_KELAS_DETAIL = "id_kls";
+    public static final String TAG_JSON_ID_KELAS_DETAIL_KELAS_DETAIL = "id_detail_kls";
+    public static final String TAG_JSON_NAMA_PST_KELAS_DETAIL = "nama_pst";
+
 //--------------------------------------------------------------------------------------------------
 
     //key and value JSON yang muncul di browser KELAS
@@ -82,7 +91,7 @@ public class Konfigurasi {
     public static final String KEY_EMAIL_INS = "email_ins";
     public static final String KEY_HP_INS = "hp_ins";
 
-    //key Maeri
+    //key Materi
     public static final String KEY_ID_MAT = "id_mat";
     public static final String KEY_NAMA_MAT = "nama_mat";
 
@@ -90,7 +99,6 @@ public class Konfigurasi {
     public static final String INS_ID = "ins_id";
     public static final String MAT_ID = "mat_id";
     public static final String KLS_ID = "kls_id";
-
-
+    public static final String KELAS_KLS_DETAIL_ID = "kls_detail_id";
 
 }

@@ -13,6 +13,18 @@
         android:theme="@style/Theme.Project7"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".DetailKelasDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TambahMateriActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TambahInstrukturActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TambahPesertaActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailKelasActivity"
             android:exported="false" />
         <activity

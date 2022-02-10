@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -40,7 +41,7 @@ public class DetailKelasActivity extends AppCompatActivity implements View.OnCli
         btn_update_kelas = findViewById(R.id.btn_update_kelas);
 
         Intent receiveIntent = getIntent();
-        id = receiveIntent.getStringExtra(Konfigurasi.INS_ID);
+        id = receiveIntent.getStringExtra(Konfigurasi.KLS_ID);
         edit_id_kelas.setText(id);
 
         // mengambil data JSON
@@ -163,8 +164,8 @@ public class DetailKelasActivity extends AppCompatActivity implements View.OnCli
                 loading.dismiss();
                 Toast.makeText(DetailKelasActivity.this,
                         "pesan: " + message, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(DetailKelasActivity.this, KelasFragment.class));
-                //System.exit(1);
+                Log.d("Hasil", message);
+                startActivity(new Intent(DetailKelasActivity.this, MainActivity.class).putExtra("keyName", "kelas"));
             }
         }
         DeleteDataPegawai deleteDataPegawai = new DeleteDataPegawai();
@@ -210,9 +211,8 @@ public class DetailKelasActivity extends AppCompatActivity implements View.OnCli
                 loading.dismiss();
                 Toast.makeText(DetailKelasActivity.this,
                         "pesan: " + message, Toast.LENGTH_SHORT).show();
-                // redirect ke LihatDataActivity
-                //System.exit(1);
-                startActivity(new Intent(DetailKelasActivity.this, KelasFragment.class));
+                Log.d("Hasil", message);
+                startActivity(new Intent(DetailKelasActivity.this, MainActivity.class).putExtra("keyName", "kelas"));
             }
         }
         UpdateDataPegawai updateDataPegawai = new UpdateDataPegawai();

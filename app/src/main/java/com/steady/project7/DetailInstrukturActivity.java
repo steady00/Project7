@@ -158,8 +158,7 @@ public class DetailInstrukturActivity extends AppCompatActivity implements View.
                 loading.dismiss();
                 Toast.makeText(DetailInstrukturActivity.this,
                         "pesan: " + message, Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(DetailInstrukturActivity.this, InstrukturFragment.class));
-                //System.exit(1);
+                startActivity(new Intent(DetailInstrukturActivity.this, MainActivity.class).putExtra("keyName", "instruktur"));
             }
         }
         DeleteDataPegawai deleteDataPegawai = new DeleteDataPegawai();
@@ -203,9 +202,7 @@ public class DetailInstrukturActivity extends AppCompatActivity implements View.
                 loading.dismiss();
                 Toast.makeText(DetailInstrukturActivity.this,
                         "pesan: " + message, Toast.LENGTH_SHORT).show();
-                // redirect ke LihatDataActivity
-                //System.exit(1);
-                startActivity(new Intent(DetailInstrukturActivity.this, InstrukturFragment.class));
+                startActivity(new Intent(DetailInstrukturActivity.this, MainActivity.class).putExtra("keyName", "instruktur"));
             }
         }
         UpdateDataPegawai updateDataPegawai = new UpdateDataPegawai();

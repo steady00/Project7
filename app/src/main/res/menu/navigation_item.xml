@@ -7,27 +7,23 @@
             android:title="Home" />
         <item
             android:id="@+id/nav_instruktur"
-            android:icon="@drawable/info"
+            android:icon="@drawable/teach"
             android:title="Instruktur" />
         <item
             android:id="@+id/nav_peserta"
-            android:icon="@drawable/info"
+            android:icon="@drawable/student"
             android:title="Peserta" />
         <item
             android:id="@+id/nav_materi"
-            android:icon="@drawable/info"
+            android:icon="@drawable/lesson"
             android:title="Materi" />
         <item
             android:id="@+id/nav_kelas"
-            android:icon="@drawable/phone"
+            android:icon="@drawable/classroom"
             android:title="Kelas" />
         <item
-            android:id="@+id/nav_contact_us"
-            android:icon="@drawable/phone"
-            android:title="Contact Us" />
-        <item
-            android:id="@+id/nav_about_us"
-            android:icon="@drawable/info"
-            android:title="About Us" />
+            android:id="@+id/nav_kelas_detail"
+            android:icon="@drawable/details"
+            android:title="Kelas Detail" />
     </group>
 </menu>

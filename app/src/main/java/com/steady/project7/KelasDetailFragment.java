@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -13,13 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.steady.project7.databinding.ActivityMainBinding;
+import com.google.android.material.navigation.NavigationView;
+import com.steady.project7.databinding.FragmentKelasDetailBinding;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,24 +30,22 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class InstrukturFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
-    //private ActivityMainBinding binding;
-    private ListView list_view_instruktur;
+public class KelasDetailFragment extends Fragment implements AdapterView.OnItemClickListener {
+
+    private ListView list_view_kelas_detail;
     private String JSON_STRING;
-    FloatingActionButton floatingActionButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_instruktur, container, false);
-        list_view_instruktur = view.findViewById(R.id.list_view_instruktur);
-        list_view_instruktur.setOnItemClickListener(this);
-        floatingActionButton = view.findViewById(R.id.btn_add_instruktur);
-        floatingActionButton.setOnClickListener(this);
+        View view = inflater.inflate(R.layout.fragment_kelas_detail, container, false);
+        list_view_kelas_detail = view.findViewById(R.id.list_view_kelas_detail);
+        list_view_kelas_detail.setOnItemClickListener(this);
 
         getJSON();
 
         return view;
     }
+
 
     public void getJSON()
     {
@@ -63,8 +64,7 @@ public class InstrukturFragment extends Fragment implements AdapterView.OnItemCl
             @Override
             protected String doInBackground(Void... voids) {
                 HttpHandler handler = new HttpHandler();
-                String result = handler.sendGetResponse(Konfigurasi.URL_GET_ALL_INSTRUKTUR);
-                //System.out.println("Result = " + result);
+                String result = handler.sendGetResponse(Konfigurasi.URL_GET_ALL_KELAS_DETAIL);
                 return result;
             }
 
@@ -95,17 +95,19 @@ public class InstrukturFragment extends Fragment implements AdapterView.OnItemCl
 
 
             for (int i = 0; i < result.length(); i++) {
-                JSONObject object = result.getJSONObject(i);
-                String id_ins = object.getString(Konfigurasi.TAG_JSON_ID_INS);
-                String nama_ins = object.getString(Konfigurasi.TAG_JSON_NAMA_INS);
+                JSONObject object = result.getJSONObject(i);;
+                String id_kls_kelas_detail = object.getString(Konfigurasi.TAG_JSON_ID_KELAS_KLS_DETAIL);
+                String nama_materi_kelas_detail = object.getString(Konfigurasi.TAG_JSON_MATERI_KLS_DETAIL);
+                String jumlah_peserta = object.getString(Konfigurasi.TAG_JSON_JUMLAH_PST);
 
 
-                HashMap<String, String> instruktur = new HashMap<>();
-                instruktur.put(Konfigurasi.TAG_JSON_ID_INS, id_ins);
-                instruktur.put(Konfigurasi.TAG_JSON_NAMA_INS, nama_ins);
+                HashMap<String, String> kelas_detail = new HashMap<>();
+                kelas_detail.put(Konfigurasi.TAG_JSON_ID_KELAS_KLS_DETAIL, id_kls_kelas_detail);
+                kelas_detail.put(Konfigurasi.TAG_JSON_MATERI_KLS_DETAIL, nama_materi_kelas_detail);
+                kelas_detail.put(Konfigurasi.TAG_JSON_JUMLAH_PST, jumlah_peserta);
 
                 // ubah format json menjadi array list
-                list.add(instruktur);
+                list.add(kelas_detail);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -114,32 +116,24 @@ public class InstrukturFragment extends Fragment implements AdapterView.OnItemCl
         // adapter untuk meletakan array list kedalam list view
         ListAdapter adapter = new SimpleAdapter(
                 getActivity(), list,
-                R.layout.activity_list_instruktur,
-                new String[]{Konfigurasi.TAG_JSON_ID_INS, Konfigurasi.TAG_JSON_NAMA_INS},
-                new int[]{R.id.txt_id_kls, R.id.txt_kls_nama_mat}
+                R.layout.activity_list_kelas_detail,
+                new String[]{Konfigurasi.TAG_JSON_ID_KELAS_KLS_DETAIL, Konfigurasi.TAG_JSON_MATERI_KLS_DETAIL, Konfigurasi.TAG_JSON_JUMLAH_PST},
+                new int[]{R.id.txt_id_kls_detail_kls, R.id.txt_materi_kelas_detail, R.id.txt_jumlah_pst}
         );
-        list_view_instruktur.setAdapter(adapter);
+        list_view_kelas_detail.setAdapter(adapter);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent myIntent = new Intent(getActivity(), DetailInstrukturActivity.class);
+        Intent myIntent = new Intent(getActivity(), DetailKelasDetailActivity.class);
         HashMap<String, String> map = (HashMap) parent.getItemAtPosition(position);
-        String insid= map.get(Konfigurasi.TAG_JSON_ID_INS).toString();
-        myIntent.putExtra(Konfigurasi.INS_ID, insid);
+        String kelas_kls_detail_id = map.get(Konfigurasi.TAG_JSON_ID_KELAS_KLS_DETAIL).toString();
+        myIntent.putExtra(Konfigurasi.KELAS_KLS_DETAIL_ID, kelas_kls_detail_id);
         startActivity(myIntent);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        Toast.makeText(getActivity(), "Tambahkan Peserta", Toast.LENGTH_SHORT).show();
-        /*Intent myIntent = new Intent(getActivity(), TambahPesertaActivity.class);*/
-        startActivity(new Intent(getActivity(), TambahInstrukturActivity.class));
     }
 }

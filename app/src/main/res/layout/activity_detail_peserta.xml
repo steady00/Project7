@@ -9,7 +9,7 @@
     tools:context=".DetailPesertaActivity">
 
     <EditText
-        android:id="@+id/edit_id_instruktur"
+        android:id="@+id/edit_id_peserta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -20,7 +20,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edit_nama_instruktur"
+        android:id="@+id/edit_nama_peserta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:editable="true"
@@ -29,7 +29,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edit_email_instruktur"
+        android:id="@+id/edit_email_peserta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:editable="true"
@@ -38,7 +38,7 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/edit_hp_instruktur"
+        android:id="@+id/edit_hp_peserta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:editable="true"
@@ -62,7 +62,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_update_instruktur"
+            android:id="@+id/btn_update_peserta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -70,7 +70,7 @@
             android:text="EDIT" />
 
         <Button
-            android:id="@+id/btn_delete_instruktur"
+            android:id="@+id/btn_delete_peserta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
