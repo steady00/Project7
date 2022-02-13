@@ -1,64 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10dp">
+    android:layout_margin="12dp"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/txt_nama_pst_kelas_detail"
-        android:layout_width="wrap_content"
+        android:id="@+id/txt_hasil_nama_materi"
+        android:layout_width="383dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="6dp"
         android:layout_weight="1"
-        android:gravity="bottom"
         android:text="TextView"
-        android:textColor="#1E1D1D"
-        android:textSize="18sp"
+        android:textColor="#1C1C1C"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textView21"
+            android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="6dp"
             android:layout_weight="1"
-            android:text="Kelas :"
-            android:textSize="14sp" />
+            android:text="Tanggal :"
+            android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/txt_id_kls_detail_kelas"
-            android:layout_width="105dp"
+            android:id="@+id/txt_hasil_tgl_mulai"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
             android:layout_weight="1"
             android:text="TextView"
-            android:textAlignment="textStart"
-            android:textSize="14sp" />
+            android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/textView22"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="1"
-            android:text="ID Detail :"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/txt_id_detail_kelas_detail_kelas"
+            android:id="@+id/kosong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:text="s/d"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/txt_hasil_tgl_akhir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="TextView"
-            android:textSize="14sp" />
-
+            android:textSize="12sp" />
     </LinearLayout>
 
 </LinearLayout>

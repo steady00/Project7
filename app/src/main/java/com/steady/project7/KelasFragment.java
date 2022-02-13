@@ -142,6 +142,6 @@ public class KelasFragment extends Fragment implements AdapterView.OnItemClickLi
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(getActivity(), "Tambahkan Peserta", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getActivity(), TambahKelasActivity.class));
     }
 }

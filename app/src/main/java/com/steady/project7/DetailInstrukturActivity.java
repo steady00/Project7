@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -107,10 +109,9 @@ public class DetailInstrukturActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View view) {
         if (view == btn_update_instruktur){
-            updateDataInstruktur();
+            validasi();
         } else if( view == btn_delete_instruktur){
             confirmDeleteDataInstruktur();
-            //Toast.makeText(this, "Button Delete", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -165,9 +166,51 @@ public class DetailInstrukturActivity extends AppCompatActivity implements View.
         deleteDataPegawai.execute();
     }
 
+
+    private void validasi(){
+        final String nama_instruktur = edit_nama_instruktur.getText().toString().trim();
+        final String email_instruktur = edit_email_instruktur.getText().toString().trim();
+        final String hp_instruktur = edit_hp_instruktur.getText().toString().trim();
+
+        if(nama_instruktur.isEmpty()){
+            Toast.makeText(this, "Isi Kembali Nama Instruktur", Toast.LENGTH_SHORT).show();
+        }else if(email_instruktur.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email_instruktur).matches()){
+            Toast.makeText(this, "Isi Kembali Alamat Email", Toast.LENGTH_SHORT).show();
+        } else if(hp_instruktur.isEmpty() || !Patterns.PHONE.matcher(hp_instruktur).matches()){
+            Toast.makeText(this, "Isi Kembali Nomor Handphone", Toast.LENGTH_SHORT).show();
+        }else{
+            confirmUpdateDataInstruktur();
+        }
+    }
+
+    private void confirmUpdateDataInstruktur() {
+        final String id_instruktur = edit_id_instruktur.getText().toString().trim();
+        final String nama_instruktur = edit_nama_instruktur.getText().toString().trim();
+        final String email_instruktur = edit_email_instruktur.getText().toString().trim();
+        final String hp_instruktur = edit_hp_instruktur.getText().toString().trim();
+
+        //Confirmation altert dialog
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Insert Data");
+        builder.setMessage("Are you sure want to change this data? " +
+                "\n Id : " + id_instruktur +
+                "\n Nama: " + nama_instruktur +
+                "\n Email: " + email_instruktur +
+                "\n No. Hp: " + hp_instruktur);
+        builder.setCancelable(false);
+        builder.setNegativeButton("Cancel", null);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                updateDataInstruktur();
+            }
+        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     private void updateDataInstruktur() {
         // data apa saja yang akan diubah
-
         final String id_instruktur = edit_id_instruktur.getText().toString().trim();
         final String nama_instruktur = edit_nama_instruktur.getText().toString().trim();
         final String email_instruktur = edit_email_instruktur.getText().toString().trim();

@@ -12,20 +12,29 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DetailKelasActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText edit_id_kelas, edit_tgl_mulai_kelas, edit_tgl_akhir_kelas, edit_nama_materi_kelas, edit_nama_instruktur_kelas;
+    EditText edit_id_kelas, edit_tgl_mulai_kelas, edit_tgl_akhir_kelas, edit_nama_materi_kelas;
     String id;
     Button btn_update_kelas, btn_delete_kelas;
+    Spinner edit_nama_instruktur_kelas;
+
+    private String temp_json, JSON_STRING_INS;
+    //Spinner spn_edit_nama_materi_kelas, spn_edit_nama_instruktur_kelas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +46,8 @@ public class DetailKelasActivity extends AppCompatActivity implements View.OnCli
         edit_tgl_akhir_kelas = findViewById(R.id.edit_tgl_akhir_kelas);
         edit_nama_materi_kelas = findViewById(R.id.edit_nama_materi_kelas);
         edit_nama_instruktur_kelas = findViewById(R.id.edit_nama_instruktur_kelas);
+
+
         btn_delete_kelas = findViewById(R.id.btn_delete_kelas);
         btn_update_kelas = findViewById(R.id.btn_update_kelas);
 
@@ -48,7 +59,9 @@ public class DetailKelasActivity extends AppCompatActivity implements View.OnCli
         getJSON();
         btn_update_kelas.setOnClickListener(this);
         btn_delete_kelas.setOnClickListener(this);
+
     }
+
 
     private void getJSON() {
         // bantuan dari class AsyncTask
@@ -67,6 +80,8 @@ public class DetailKelasActivity extends AppCompatActivity implements View.OnCli
             protected String doInBackground(Void... voids) {
                 HttpHandler handler = new HttpHandler();
                 String result = handler.sendGetResponse(Konfigurasi.URL_DETAIL_KELAS, id);
+                String instruktur = handler.sendGetResponse(Konfigurasi.URL_GET_ALL_INSTRUKTUR);
+                temp_json = instruktur;
                 return result;
             }
 
@@ -75,6 +90,41 @@ public class DetailKelasActivity extends AppCompatActivity implements View.OnCli
                 super.onPostExecute(message);
                 loading.dismiss();
                 displayDetailData(message);
+
+
+                JSON_STRING_INS = temp_json;
+
+                JSONObject jsonObjectIns = null;
+                ArrayList<String> arrayListIns = new ArrayList<>();
+                try {
+                    //json array data detail kelas
+                    JSONObject jsonObject = new JSONObject(message);
+                    JSONArray result = jsonObject.getJSONArray(Konfigurasi.TAG_JSON_ARRAY);
+                    JSONObject object = result.getJSONObject(0);
+
+                    //json array nama instruktur
+                    jsonObjectIns = new JSONObject(JSON_STRING_INS);
+                    JSONArray jsonArrayIns = jsonObjectIns.getJSONArray(Konfigurasi.TAG_JSON_ARRAY);
+
+                    arrayListIns.add(0, object.getString(Konfigurasi.TAG_JSON_NAMA_INS));
+
+                    for (int i = 0; i < jsonArrayIns.length(); i++) {
+                        JSONObject nama_instruktur = jsonArrayIns.getJSONObject(i);
+                        String nameInstruktur = nama_instruktur.getString(Konfigurasi.TAG_JSON_NAMA_INS);
+
+                        arrayListIns.add(nameInstruktur);
+                        Log.d("DataArrIns: ", String.valueOf(nameInstruktur));
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(DetailKelasActivity.this, android.R.layout.simple_spinner_dropdown_item, arrayListIns);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                edit_nama_instruktur_kelas.setAdapter(adapter);
+
             }
         }
         GetJSON getJSON = new GetJSON();
@@ -96,14 +146,14 @@ public class DetailKelasActivity extends AppCompatActivity implements View.OnCli
             String id_kelas = object.getString(Konfigurasi.TAG_JSON_ID_KLS);
             String tgl_masuk_kelas = object.getString(Konfigurasi.TAG_JSON_TGL_MULAI);
             String tgl_akhir_kelas = object.getString(Konfigurasi.TAG_JSON_TGL_AKHIR);
-            String nama_materi_kelas = object.getString(Konfigurasi.TAG_JSON_KLS_NAMA_INS);
-            String nama_instruktur_kelas = object.getString(Konfigurasi.TAG_JSON_KLS_NAMA_MAT);
+            String nama_materi_kelas = object.getString(Konfigurasi.TAG_JSON_KLS_NAMA_MAT);
+            //String nama_instruktur_kelas = object.getString(Konfigurasi.TAG_JSON_KLS_NAMA_INS);
 
             edit_id_kelas.setText(id_kelas);
             edit_tgl_mulai_kelas.setText(tgl_masuk_kelas);
             edit_tgl_akhir_kelas.setText(tgl_akhir_kelas);
             edit_nama_materi_kelas.setText(nama_materi_kelas);
-            edit_nama_instruktur_kelas.setText(nama_instruktur_kelas);
+            //edit_nama_instruktur_kelas.setText(nama_instruktur_kelas);
 
 
         } catch (Exception ex) {
@@ -111,14 +161,57 @@ public class DetailKelasActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
+
+
     @Override
     public void onClick(View view) {
         if (view == btn_update_kelas){
-            updateDataKelas();
+            validasi();
         } else if( view == btn_delete_kelas){
             confirmDeleteDataKelas();
             //Toast.makeText(this, "Button Delete", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void validasi() {
+        final String tgl_masuk_kelas = edit_tgl_mulai_kelas.getText().toString().trim();
+        final String tgl_akhir_kelas = edit_tgl_akhir_kelas.getText().toString().trim();
+
+        if(tgl_masuk_kelas.isEmpty()){
+            Toast.makeText(this, "Tanggal Mulai Belum Diisi", Toast.LENGTH_SHORT).show();
+        }else if(tgl_akhir_kelas.isEmpty()){
+            Toast.makeText(this, "Tanggal Akhir Belum Diisi!", Toast.LENGTH_SHORT).show();
+        }else{
+            confirmUpdateDataKelas();
+        }
+
+    }
+
+    private void confirmUpdateDataKelas() {
+        final String id_kelas = edit_id_kelas.getText().toString().trim();
+        final String tgl_masuk_kelas = edit_tgl_mulai_kelas.getText().toString().trim();
+        final String tgl_akhir_kelas = edit_tgl_akhir_kelas.getText().toString().trim();
+        final String nama_materi_kelas = edit_nama_materi_kelas.getText().toString().trim();
+        final String nama_instruktur_kelas = edit_nama_instruktur_kelas.getSelectedItem().toString().trim();
+
+        //Confirmation altert dialog
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Insert Data");
+        builder.setMessage("Are you sure want to insert this data? " +
+                "\nID Kelas     : " + id_kelas +
+                "\nTgl. Mulai   : " + tgl_masuk_kelas +
+                "\nTgl. Akhir   : " + tgl_akhir_kelas +
+                "\nMateri       : " + nama_materi_kelas +
+                "\nInstruktur   : " + nama_instruktur_kelas);
+        builder.setNegativeButton("Cancel", null);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                updateDataKelas();
+            }
+        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void confirmDeleteDataKelas() {
@@ -179,9 +272,9 @@ public class DetailKelasActivity extends AppCompatActivity implements View.OnCli
         final String tgl_masuk_kelas = edit_tgl_mulai_kelas.getText().toString().trim();
         final String tgl_akhir_kelas = edit_tgl_akhir_kelas.getText().toString().trim();
         final String nama_materi_kelas = edit_nama_materi_kelas.getText().toString().trim();
-        final String nama_instruktur_kelas = edit_nama_instruktur_kelas.getText().toString().trim();
+        final String nama_instruktur_kelas = edit_nama_instruktur_kelas.getSelectedItem().toString().trim();
 
-        class UpdateDataPegawai extends AsyncTask<Void, Void, String> {
+        class UpdateData extends AsyncTask<Void, Void, String> {
             ProgressDialog loading;
 
             @Override
@@ -198,8 +291,8 @@ public class DetailKelasActivity extends AppCompatActivity implements View.OnCli
                 params.put(Konfigurasi.KEY_ID_KLS, id_kelas);
                 params.put(Konfigurasi.KEY_TGL_MULAI, tgl_masuk_kelas);
                 params.put(Konfigurasi.KEY_TGL_AKHIR, tgl_akhir_kelas);
-                params.put(Konfigurasi.KEY_KLS_NAMA_INS, nama_materi_kelas);
-                params.put(Konfigurasi.KEY_KLS_NAMA_MAT, nama_instruktur_kelas);
+                params.put(Konfigurasi.KEY_NAMA_MAT, nama_materi_kelas);
+                params.put(Konfigurasi.KEY_NAMA_INS, nama_instruktur_kelas);
                 HttpHandler handler = new HttpHandler();
                 String result = handler.sendPostRequest(Konfigurasi.URL_UPDATE_KELAS, params);
                 return result;
@@ -215,7 +308,7 @@ public class DetailKelasActivity extends AppCompatActivity implements View.OnCli
                 startActivity(new Intent(DetailKelasActivity.this, MainActivity.class).putExtra("keyName", "kelas"));
             }
         }
-        UpdateDataPegawai updateDataPegawai = new UpdateDataPegawai();
-        updateDataPegawai.execute();
+        UpdateData updateData = new UpdateData();
+        updateData.execute();
     }
 }

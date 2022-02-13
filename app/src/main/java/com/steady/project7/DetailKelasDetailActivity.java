@@ -7,9 +7,13 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -17,11 +21,12 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DetailKelasDetailActivity extends AppCompatActivity {
+public class DetailKelasDetailActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private ListView list_view_detail_kelas_detail;
     private String JSON_STRING;
     String id;
+    //FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +34,9 @@ public class DetailKelasDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_kelas_detail);
 
         list_view_detail_kelas_detail = findViewById(R.id.list_view_detail_kelas_detail);
-        //list_view_detail_kelas_detail.setOnItemClickListener(this);
+        list_view_detail_kelas_detail.setOnItemClickListener(this);
+        //floatingActionButton = findViewById(R.id.btn_add_kelas);
+        //floatingActionButton.setOnClickListener(this);
 
         Intent receiveIntent = getIntent();
         id = receiveIntent.getStringExtra(Konfigurasi.KELAS_KLS_DETAIL_ID);
@@ -84,7 +91,7 @@ public class DetailKelasDetailActivity extends AppCompatActivity {
 
 
             for (int i = 0; i < result.length(); i++) {
-                JSONObject object = result.getJSONObject(i);;
+                JSONObject object = result.getJSONObject(i);
                 String id_kls_detail_kelas = object.getString(Konfigurasi.TAG_JSON_ID_KELAS_KELAS_DETAIL);
                 String id_detail_kls_detail_kelas = object.getString(Konfigurasi.TAG_JSON_ID_KELAS_DETAIL_KELAS_DETAIL);
                 String nama_peserta = object.getString(Konfigurasi.TAG_JSON_NAMA_PST_KELAS_DETAIL);
@@ -110,5 +117,19 @@ public class DetailKelasDetailActivity extends AppCompatActivity {
                 new int[]{R.id.txt_id_kls_detail_kelas, R.id.txt_id_detail_kelas_detail_kelas, R.id.txt_nama_pst_kelas_detail}
         );
         list_view_detail_kelas_detail.setAdapter(adapter);
+    }
+
+    /*@Override
+    public void onClick(View view) {
+        startActivity(new Intent(DetailKelasDetailActivity.this, TambahPesertaKelasDetailActivity.class));
+    }*/
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent myIntent = new Intent(DetailKelasDetailActivity.this, DeleteKelasDetailActivity.class);
+        HashMap<String, String> map = (HashMap) parent.getItemAtPosition(position);
+        String detailklsid= map.get(Konfigurasi.TAG_JSON_ID_KELAS_DETAIL_KELAS_DETAIL).toString();
+        myIntent.putExtra(Konfigurasi.KELAS_KLS_DETAIL_ID, detailklsid);
+        startActivity(myIntent);
     }
 }

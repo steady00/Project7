@@ -138,8 +138,6 @@ public class InstrukturFragment extends Fragment implements AdapterView.OnItemCl
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(getActivity(), "Tambahkan Peserta", Toast.LENGTH_SHORT).show();
-        /*Intent myIntent = new Intent(getActivity(), TambahPesertaActivity.class);*/
         startActivity(new Intent(getActivity(), TambahInstrukturActivity.class));
     }
 }

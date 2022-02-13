@@ -3,10 +3,13 @@ package com.steady.project7;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -30,9 +33,38 @@ public class TambahMateriActivity extends AppCompatActivity {
         btn_add_materi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                validasi();
+            }
+        });
+    }
+
+    private void validasi(){
+        final String add_nama_materi = edit_add_nama_materi.getText().toString().trim();
+
+        if(add_nama_materi.isEmpty()){
+            Toast.makeText(this, "Isi Kembali Nama Materi", Toast.LENGTH_SHORT).show();
+        }else{
+            confirmSimpanDataMateri();
+        }
+    }
+
+    private void confirmSimpanDataMateri() {
+        final String add_nama_materi = edit_add_nama_materi.getText().toString().trim();
+
+        //Confirmation altert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Insert Data");
+        builder.setMessage("Are you sure want to insert this data? " +
+                "\n Materi : " + add_nama_materi);
+        builder.setNegativeButton("Cancel", null);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
                 simpanDataMateri();
             }
         });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void simpanDataMateri() {

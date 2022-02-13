@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -110,10 +111,10 @@ public class DetailPesertaActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View view) {
         if (view == btn_update_peserta){
-            updateDataPeserta();
+            //confirmUpdateDataPeserta();
+            validasi();
         } else if( view == btn_delete_peserta){
             confirmDeleteDataPeserta();
-            //Toast.makeText(this, "Button Delete", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -168,9 +169,55 @@ public class DetailPesertaActivity extends AppCompatActivity implements View.OnC
         deleteDataPegawai.execute();
     }
 
+    private void validasi(){
+        final String nama_peserta = edit_nama_peserta.getText().toString().trim();
+        final String email_peserta = edit_email_peserta.getText().toString().trim();
+        final String hp_peserta = edit_hp_peserta.getText().toString().trim();
+        final String ins_peserta = edit_ins_peserta.getText().toString().trim();
+
+        if(nama_peserta.isEmpty()){
+            Toast.makeText(this, "Isi Kembali Nama Peserta", Toast.LENGTH_SHORT).show();
+        }else if(email_peserta.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email_peserta).matches()){
+            Toast.makeText(this, "Isi Kembali Alamat Email", Toast.LENGTH_SHORT).show();
+        } else if(hp_peserta.isEmpty() || !Patterns.PHONE.matcher(hp_peserta).matches()){
+            Toast.makeText(this, "Isi Kembali Nomor Handphone", Toast.LENGTH_SHORT).show();
+        }else if(ins_peserta.isEmpty()){
+            Toast.makeText(this, "Isi Kembali Nama Instansi", Toast.LENGTH_SHORT).show();
+        }else{
+            confirmUpdateDataPeserta();
+        }
+    }
+
+    private void confirmUpdateDataPeserta() {
+        final String id_peserta = edit_id_peserta.getText().toString().trim();
+        final String nama_peserta = edit_nama_peserta.getText().toString().trim();
+        final String email_peserta = edit_email_peserta.getText().toString().trim();
+        final String hp_peserta = edit_hp_peserta.getText().toString().trim();
+        final String ins_peserta = edit_ins_peserta.getText().toString().trim();
+
+        //Confirmation altert dialog
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Insert Data");
+        builder.setMessage("Are you sure want to change this data? " +
+                "\n Id       : " + id_peserta +
+                "\n Nama     : " + nama_peserta +
+                "\n Email    : " + email_peserta +
+                "\n No. HP   : " + hp_peserta +
+                "\n Instansi : " + ins_peserta);
+        builder.setCancelable(false);
+        builder.setNegativeButton("Cancel", null);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                updateDataPeserta();
+            }
+        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     private void updateDataPeserta() {
         // data apa saja yang akan diubah
-
         final String id_peserta = edit_id_peserta.getText().toString().trim();
         final String nama_peserta = edit_nama_peserta.getText().toString().trim();
         final String email_peserta = edit_email_peserta.getText().toString().trim();

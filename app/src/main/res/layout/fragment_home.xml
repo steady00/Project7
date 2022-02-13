@@ -1,18 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
     tools:context=".HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="HOME FRAGMENT"
-        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Find Here :"
+        android:textAlignment="textStart"
         android:textSize="24sp"
         android:textStyle="bold" />
 
-</FrameLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="3dp">
+
+        <EditText
+            android:id="@+id/edit_search_jumlah_peserta"
+            android:layout_width="313dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:editable="true"
+            android:ems="10"
+            android:hint="Cari Total Peserta pada Tahun Tertentu"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/btn_search_jumlah_peserta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Go" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/txt_search3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:textSize="18sp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
+
+        <EditText
+            android:id="@+id/edit_search_peserta"
+            android:layout_width="313dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:editable="true"
+            android:ems="10"
+            android:hint="Cari Peserta dari Materi Tertentu"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+
+        <Button
+            android:id="@+id/btn_search_peserta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Go" />
+
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/list_search1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Shortcut"
+        android:textAlignment="textStart"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_home_instruktur"
+            android:layout_width="180dp"
+            android:layout_height="58dp"
+            android:layout_margin="5dp"
+            android:text="Instruktur"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_home_peserta"
+            android:layout_width="180dp"
+            android:layout_height="58dp"
+            android:layout_margin="5dp"
+            android:text="Peserta"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_home_materi"
+            android:layout_width="180dp"
+            android:layout_height="58dp"
+            android:layout_margin="5dp"
+            android:text="Materi"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btn_home_kelas"
+            android:layout_width="180dp"
+            android:layout_height="58dp"
+            android:layout_margin="5dp"
+            android:text="Kelas"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>

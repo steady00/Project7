@@ -51,10 +51,10 @@
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:padding="5dp"
-                    android:text="Manage Account"
+                    android:text="Inixindo.id"
                     android:textAlignment="textStart"
                     android:textSize="10sp"
-                    app:icon="@drawable/profile_setting" />
+                    app:icon="@drawable/web" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

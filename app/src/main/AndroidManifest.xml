@@ -13,6 +13,15 @@
         android:theme="@style/Theme.Project7"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".DeleteKelasDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TambahPesertaKelasDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TambahKelasActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailKelasDetailActivity"
             android:exported="false" />
         <activity

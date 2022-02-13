@@ -17,7 +17,7 @@
                 android:id="@+id/toolbar"
                 app:title="Simple Drawer"
                 app:titleTextColor="@color/white"
-                android:background="@android:color/holo_red_dark"
+                android:background="@color/navy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             </androidx.appcompat.widget.Toolbar>
@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:paddingVertical="0dp"
-            android:background="@color/white"
+            android:background="@color/abu_muda"
             android:fitsSystemWindows="true"
             app:itemBackground="@drawable/item_selected"
             app:itemHorizontalPadding="42dp"

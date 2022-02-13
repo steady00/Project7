@@ -3,10 +3,13 @@ package com.steady.project7;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -32,9 +35,49 @@ public class TambahInstrukturActivity extends AppCompatActivity {
         btn_add_instruktur.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                validasi();
+            }
+        });
+    }
+
+    private void validasi(){
+        final String add_nama_instruktur = edit_add_nama_instruktur.getText().toString().trim();
+        final String add_email_instruktur = edit_add_email_instruktur.getText().toString().trim();
+        final String add_hp_instruktur = edit_add_hp_instruktur.getText().toString().trim();
+
+        if(add_nama_instruktur.isEmpty()){
+            Toast.makeText(this, "Isi Kembali Nama Instruktur", Toast.LENGTH_SHORT).show();
+        }else if(add_email_instruktur.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(add_email_instruktur).matches()){
+            Toast.makeText(this, "Isi Kembali Alamat Email", Toast.LENGTH_SHORT).show();
+        } else if(add_hp_instruktur.isEmpty() || !Patterns.PHONE.matcher(add_hp_instruktur).matches()){
+            Toast.makeText(this, "Isi Kembali Nomor Handphone", Toast.LENGTH_SHORT).show();
+        }else{
+            confirmSimpanDataInstruktur();
+        }
+    }
+
+    private void confirmSimpanDataInstruktur() {
+        final String add_nama_instruktur = edit_add_nama_instruktur.getText().toString().trim();
+        final String add_email_instruktur = edit_add_email_instruktur.getText().toString().trim();
+        final String add_hp_instruktur = edit_add_hp_instruktur.getText().toString().trim();
+
+        //Confirmation alert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Insert Data");
+        builder.setMessage("Are you sure want to insert this data? " +
+                "\n Nama : " + add_nama_instruktur +
+                "\n Email: " + add_email_instruktur +
+                "\n No Hp: " + add_hp_instruktur);
+        builder.setCancelable(false);
+        builder.setNegativeButton("Cancel", null);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
                 simpanDataInstruktur();
             }
         });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void simpanDataInstruktur() {

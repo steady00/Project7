@@ -30,16 +30,19 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class KelasDetailFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class KelasDetailFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private ListView list_view_kelas_detail;
     private String JSON_STRING;
+    FloatingActionButton floatingActionButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_kelas_detail, container, false);
         list_view_kelas_detail = view.findViewById(R.id.list_view_kelas_detail);
         list_view_kelas_detail.setOnItemClickListener(this);
+        floatingActionButton = view.findViewById(R.id.btn_add_kelas);
+        floatingActionButton.setOnClickListener(this);
 
         getJSON();
 
@@ -135,5 +138,10 @@ public class KelasDetailFragment extends Fragment implements AdapterView.OnItemC
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @Override
+    public void onClick(View view) {
+        startActivity(new Intent(getActivity(), TambahPesertaKelasDetailActivity.class));
     }
 }

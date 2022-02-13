@@ -25,5 +25,9 @@
             android:id="@+id/nav_kelas_detail"
             android:icon="@drawable/details"
             android:title="Kelas Detail" />
+        <item
+            android:id="@+id/nav_search_subscriber"
+            android:icon="@drawable/search"
+            android:title="Search Subscriber" />
     </group>
 </menu>

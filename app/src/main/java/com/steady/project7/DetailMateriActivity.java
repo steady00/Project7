@@ -31,7 +31,7 @@ public class DetailMateriActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_detail_materi);
 
         edit_id_materi = findViewById(R.id.edit_id_materi);
-        edit_nama_materi = findViewById(R.id.edit_nama_materi);
+        edit_nama_materi = findViewById(R.id.edit_search_peserta);
         btn_delete_materi = findViewById(R.id.btn_delete_materi);
         btn_update_materi = findViewById(R.id.btn_update_materi);
 
@@ -101,12 +101,12 @@ public class DetailMateriActivity extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View view) {
         if (view == btn_update_materi){
-            updateDataMateri();
+            validasi();
         } else if( view == btn_delete_materi){
             confirmDeleteDataMateri();
-            //Toast.makeText(this, "Button Delete", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void confirmDeleteDataMateri() {
         // Confirmasi dengan Allert Dialog
@@ -157,6 +157,39 @@ public class DetailMateriActivity extends AppCompatActivity implements View.OnCl
         }
         DeleteDataPegawai deleteDataPegawai = new DeleteDataPegawai();
         deleteDataPegawai.execute();
+    }
+
+
+    private void validasi(){
+        final String nama_materi = edit_nama_materi.getText().toString().trim();
+
+        if(nama_materi.isEmpty()){
+            Toast.makeText(this, "Isi Kembali Nama Materi", Toast.LENGTH_SHORT).show();
+        }else{
+            confirmUpdateDataMateri();
+        }
+    }
+
+    private void confirmUpdateDataMateri() {
+        final String id_materi = edit_id_materi.getText().toString().trim();
+        final String nama_materi = edit_nama_materi.getText().toString().trim();
+
+        //Confirmation altert dialog
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Insert Data");
+        builder.setMessage("Are you sure want to change this data? " +
+                "\n Id Materi : " + id_materi +
+                "\n Materi    : " + nama_materi);
+        builder.setCancelable(false);
+        builder.setNegativeButton("Cancel", null);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                updateDataMateri();
+            }
+        });
+        android.app.AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void updateDataMateri() {

@@ -2,11 +2,13 @@ package com.steady.project7;
 
 public class Konfigurasi {
     //url dimana web API berada
-    //melihat data
-    public static final String URL_ADD_DETAIL_KELAS = "http://192.168.0.6/inixtraining/detail_kelas/tr_add_detail_kelas.php";
+    //public static final String URL_ADD_DETAIL_KELAS = "http://192.168.0.6/inixtraining/detail_kelas/tr_add_detail_kelas.php";
+    public static final String URL_ADD_PESERTA_DETAIL_KELAS = "http://192.168.0.6/inixtraining/detail_kelas/tr_add_detail_kelas.php";
     public static final String URL_GET_ALL_KELAS_DETAIL = "http://192.168.0.6/inixtraining/detail_kelas/tr_datas_detail_kelas.php";
-    public static final String URL_DELETE_KELAS_DETAIL = "http://192.168.0.6/inixtraining/detail_kelas/tr_delete_detail_kelas.php";
+    public static final String URL_DELETE_KELAS_DETAIL_PESERTA = "http://192.168.0.6/inixtraining/detail_kelas/tr_delete_detail_kelas.php?id_detail_kls=";
     public static final String URL_DETAIL_KELAS_DETAIL = "http://192.168.0.6/inixtraining/detail_kelas/tr_detail_detail_kelas.php?id_kls=";
+    public static final String URL_DETAIL_DELETE_PESERTA = "http://192.168.0.6/inixtraining/detail_kelas/tr_detail_delete_peserta.php?id_detail_kls=";
+    public static final String URL_UPDATE_PESERTA_DETAIL_KELAS = "http://192.168.0.6/inixtraining/detail_kelas/tr_update_detail_kelas.php";
 
     public static final String URL_ADD_INSTRUKTUR = "http://192.168.0.6/inixtraining/instruktur/tr_add_instruktur.php";
     public static final String URL_GET_ALL_INSTRUKTUR = "http://192.168.0.6/inixtraining/instruktur/tr_datas_instruktur.php";
@@ -32,6 +34,9 @@ public class Konfigurasi {
     public static final String URL_DETAIL_PESERTA = "http://192.168.0.6/inixtraining/peserta/tr_detail_peserta.php?id_pst=";
     public static final String URL_UPDATE_PESERTA = "http://192.168.0.6/inixtraining/peserta/tr_update_peserta.php";
 
+    public static final String URL_SEARCH_PESERTA = "http://192.168.0.6/inixtraining/search/search1.php?nama_mat=";
+    public static final String URL_SEARCH_MATERI = "http://192.168.0.6/inixtraining/search/search2.php?nama_pst=";
+    public static final String URL_SEARCH_JUMLAH = "http://192.168.0.6/inixtraining/search/search3.php?tgl_mulai_kls=";
 
     //flag JSON Kelas
     public static final String TAG_JSON_ARRAY = "result";
@@ -67,16 +72,26 @@ public class Konfigurasi {
     public static final String TAG_JSON_ID_KELAS_DETAIL_KELAS_DETAIL = "id_detail_kls";
     public static final String TAG_JSON_NAMA_PST_KELAS_DETAIL = "nama_pst";
 
+    //flag JSON Search
+    public static final String TAG_JSON_JUMLAH_PESERTA = "jum_pst";
+
+    public static final String TAG_JSON_HASIL_NAMA_MATERI = "nama_mat";
+    public static final String TAG_JSON_HASIL_TGL_MULAI = "tgl_mulai_kls";
+    public static final String TAG_JSON_HASIL_TGL_AKHIR = "tgl_akhir_kls";
+
 //--------------------------------------------------------------------------------------------------
 
     //key and value JSON yang muncul di browser KELAS
     public static final String KEY_ID_KLS = "id_kls";
     public static final String KEY_TGL_MULAI = "tgl_mulai_kls";
     public static final String KEY_TGL_AKHIR = "tgl_akhir_kls";
-    public static final String KEY_KLS_NAMA_INS = "nama_ins";
-    public static final String KEY_KLS_NAMA_MAT = "nama_mat";
-    //public static final String KEY_ID_INS = "id_ins";
-    //public static final String KEY_ID_MAT = "id_mat";
+    //public static final String KEY_KLS_NAMA_INS = "nama_ins";
+    //public static final String KEY_KLS_NAMA_MAT = "nama_mat";
+
+    public static final String KEY_ID_DETAIL_KELAS = "id_detail_kls";
+
+    public static final String KEY_KLS_ID_INS = "id_ins";
+    public static final String KEY_KLS_ID_MAT = "id_mat";
 
     //key PESERTA
     public static final String KEY_ID_PST = "id_pst";

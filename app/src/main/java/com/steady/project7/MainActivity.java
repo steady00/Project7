@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Test Header Click", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(MainActivity.this, ManageAccountActivity.class));
+                startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://www.inixindo.id")));
 
             }
         });
@@ -83,28 +83,28 @@ public class MainActivity extends AppCompatActivity {
                 binding.navView.setCheckedItem(R.id.nav_home);
                 break;
             case "instruktur":
-                getSupportActionBar().setTitle("Instruktur");
+                getSupportActionBar().setTitle("Daftar Instruktur");
                 fragment = new InstrukturFragment();
                 binding.drawer.closeDrawer(GravityCompat.START);
                 callFragment(fragment);
                 binding.navView.setCheckedItem(R.id.nav_instruktur);
                 break;
             case "materi":
-                getSupportActionBar().setTitle("Materi");
+                getSupportActionBar().setTitle("Daftar Materi");
                 fragment = new MateriFragment();
                 binding.drawer.closeDrawer(GravityCompat.START);
                 callFragment(fragment);
                 binding.navView.setCheckedItem(R.id.nav_materi);
                 break;
             case "peserta":
-                getSupportActionBar().setTitle("Peserta");
+                getSupportActionBar().setTitle("Daftar Peserta");
                 fragment = new PesertaFragment();
                 binding.drawer.closeDrawer(GravityCompat.START);
                 callFragment(fragment);
                 binding.navView.setCheckedItem(R.id.nav_peserta);
                 break;
             case "kelas":
-                getSupportActionBar().setTitle("Kelas");
+                getSupportActionBar().setTitle("Daftar Kelas");
                 fragment = new KelasFragment();
                 binding.drawer.closeDrawer(GravityCompat.START);
                 callFragment(fragment);
@@ -116,6 +116,13 @@ public class MainActivity extends AppCompatActivity {
                 binding.drawer.closeDrawer(GravityCompat.START);
                 callFragment(fragment);
                 binding.navView.setCheckedItem(R.id.nav_kelas_detail);
+                break;
+            case "search subscriber":
+                getSupportActionBar().setTitle("Search Subscriber");
+                fragment = new SearchSubscriberFragment();
+                binding.drawer.closeDrawer(GravityCompat.START);
+                callFragment(fragment);
+                binding.navView.setCheckedItem(R.id.nav_search_subscriber);
                 break;
         }
         // membuka drawer
@@ -168,6 +175,12 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_kelas_detail:
                         fragment = new KelasDetailFragment();
                         getSupportActionBar().setTitle("Kelas Detail");
+                        binding.drawer.closeDrawer(GravityCompat.START);
+                        callFragment(fragment);
+                        break;
+                    case R.id.nav_search_subscriber:
+                        fragment = new SearchSubscriberFragment();
+                        getSupportActionBar().setTitle("Search Subscriber");
                         binding.drawer.closeDrawer(GravityCompat.START);
                         callFragment(fragment);
                         break;

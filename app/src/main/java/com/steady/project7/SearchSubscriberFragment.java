@@ -1,27 +1,21 @@
 package com.steady.project7;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.steady.project7.databinding.ActivityMainBinding;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,28 +23,32 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
-public class MateriFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
-    //private ActivityMainBinding binding;
-    private ListView list_view_materi;
+public class SearchSubscriberFragment extends Fragment {
+    Button btn_search_subscriber;
+    ListView list_search2;
+    EditText edit_search_subscriber;
     private String JSON_STRING;
-    FloatingActionButton floatingActionButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_materi, container, false);
-        list_view_materi = view.findViewById(R.id.list_view_materi);
-        list_view_materi.setOnItemClickListener(this);
-        floatingActionButton = view.findViewById(R.id.btn_add_materi);
-        floatingActionButton.setOnClickListener(this);
+        View view = inflater.inflate(R.layout.fragment_search_subscriber, container, false);
 
-        getJSON();
+        btn_search_subscriber = view.findViewById(R.id.btn_search_subscriber);
+        list_search2 = view.findViewById(R.id.list_search2);
+        edit_search_subscriber = view.findViewById(R.id.edit_search_subscriber);
+
+        btn_search_subscriber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getJSON();
+            }
+        });
 
         return view;
     }
 
-    public void getJSON()
-    {
+    private void getJSON() {
+        String nama_peserta = edit_search_subscriber.getText().toString().trim();
         class GetJSON extends AsyncTask<Void, Void, String>
         {
             ProgressDialog loading;
@@ -66,8 +64,7 @@ public class MateriFragment extends Fragment implements AdapterView.OnItemClickL
             @Override
             protected String doInBackground(Void... voids) {
                 HttpHandler handler = new HttpHandler();
-                String result = handler.sendGetResponse(Konfigurasi.URL_GET_ALL_MATERI);
-                //System.out.println("Result = " + result);
+                String result = handler.sendGetResponse(Konfigurasi.URL_SEARCH_MATERI, nama_peserta);
                 return result;
             }
 
@@ -80,32 +77,33 @@ public class MateriFragment extends Fragment implements AdapterView.OnItemClickL
 
 
                 // menampilkan data dalam bentuk list view
-                displayAllData();
+                displayData();
             }
         }
         GetJSON getJSON = new GetJSON();
         getJSON.execute();
     }
 
-    private void displayAllData() {
+    private void displayData() {
         JSONObject jsonObject = null;
         ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
 
         try {
             jsonObject = new JSONObject(JSON_STRING);
             JSONArray result = jsonObject.getJSONArray(Konfigurasi.TAG_JSON_ARRAY);
-            Log.d("DATA_JSON: ", JSON_STRING);
 
 
             for (int i = 0; i < result.length(); i++) {
                 JSONObject object = result.getJSONObject(i);
-                String id_mat = object.getString(Konfigurasi.TAG_JSON_ID_MAT);
-                String nama_mat = object.getString(Konfigurasi.TAG_JSON_NAMA_MAT);
+                String nama_materi = object.getString(Konfigurasi.TAG_JSON_HASIL_NAMA_MATERI);
+                String tgl_mulai = object.getString(Konfigurasi.TAG_JSON_HASIL_TGL_MULAI);
+                String tgl_akhir = object.getString(Konfigurasi.TAG_JSON_HASIL_TGL_AKHIR);
 
 
                 HashMap<String, String> materi = new HashMap<>();
-                materi.put(Konfigurasi.TAG_JSON_ID_MAT, id_mat);
-                materi.put(Konfigurasi.TAG_JSON_NAMA_MAT, nama_mat);
+                materi.put(Konfigurasi.TAG_JSON_HASIL_NAMA_MATERI, nama_materi);
+                materi.put(Konfigurasi.TAG_JSON_HASIL_TGL_MULAI, tgl_mulai);
+                materi.put(Konfigurasi.TAG_JSON_HASIL_TGL_AKHIR, tgl_akhir);
 
                 // ubah format json menjadi array list
                 list.add(materi);
@@ -117,33 +115,10 @@ public class MateriFragment extends Fragment implements AdapterView.OnItemClickL
         // adapter untuk meletakan array list kedalam list view
         ListAdapter adapter = new SimpleAdapter(
                 getActivity(), list,
-                R.layout.activity_list_materi,
-                new String[]{Konfigurasi.TAG_JSON_ID_MAT, Konfigurasi.TAG_JSON_NAMA_MAT},
-                new int[]{R.id.txt_id_mat, R.id.txt_nama_mat}
+                R.layout.activity_list_search_materi,
+                new String[]{Konfigurasi.TAG_JSON_HASIL_NAMA_MATERI, Konfigurasi.TAG_JSON_HASIL_TGL_MULAI, Konfigurasi.TAG_JSON_HASIL_TGL_AKHIR},
+                new int[]{R.id.txt_hasil_nama_materi, R.id.txt_hasil_tgl_mulai, R.id.txt_hasil_tgl_akhir}
         );
-        list_view_materi.setAdapter(adapter);
-    }
-
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent myIntent = new Intent(getActivity(), DetailMateriActivity.class);
-        HashMap<String, String> map = (HashMap) parent.getItemAtPosition(position);
-        String matid= map.get(Konfigurasi.TAG_JSON_ID_MAT).toString();
-        myIntent.putExtra(Konfigurasi.MAT_ID, matid);
-        startActivity(myIntent);
-
-    }
-
-    @Override
-    public void onClick(View view) {
-        startActivity(new Intent(getActivity(), TambahMateriActivity.class));
+        list_search2.setAdapter(adapter);
     }
 }

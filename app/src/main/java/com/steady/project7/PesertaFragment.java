@@ -132,8 +132,6 @@ public class PesertaFragment extends Fragment implements AdapterView.OnItemClick
 
     @Override
     public void onClick(View view) {
-        Toast.makeText(getActivity(), "Tambahkan Peserta", Toast.LENGTH_SHORT).show();/*Intent myIntent = new Intent(getActivity(), TambahPesertaActivity.class);
-        startActivity(myIntent);*/
         startActivity(new Intent(getActivity(), TambahPesertaActivity.class));
     }
 

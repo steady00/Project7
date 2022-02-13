@@ -3,10 +3,13 @@ package com.steady.project7;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -38,11 +41,55 @@ public class TambahPesertaActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View view) {
         if(view == btn_add_peserta){
-            simpanDataPeserta();
+            validasi();
         } else if (view == btn_lihat_peserta){
             startActivity(new Intent(TambahPesertaActivity.this, MainActivity.class).putExtra("keyName", "peserta"));
         }
 
+    }
+
+    private void validasi(){
+        final String add_nama_peserta = edit_add_nama_peserta.getText().toString().trim();
+        final String add_email_peserta = edit_add_email_peserta.getText().toString().trim();
+        final String add_hp_peserta = edit_add_hp_peserta.getText().toString().trim();
+        final String add_ins_peserta = edit_add_ins_peserta.getText().toString().trim();
+
+        if(add_nama_peserta.isEmpty()){
+            Toast.makeText(this, "Isi Kembali Nama Peserta", Toast.LENGTH_SHORT).show();
+        }else if(add_email_peserta.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(add_email_peserta).matches()){
+            Toast.makeText(this, "Isi Kembali Alamat Email", Toast.LENGTH_SHORT).show();
+        } else if(add_hp_peserta.isEmpty() || !Patterns.PHONE.matcher(add_hp_peserta).matches()){
+            Toast.makeText(this, "Isi Kembali Nomor Handphone", Toast.LENGTH_SHORT).show();
+        }else if(add_ins_peserta.isEmpty()){
+            Toast.makeText(this, "Isi Kembali Nama Instansi", Toast.LENGTH_SHORT).show();
+        }else{
+            confirmSimpanDataPeserta();
+        }
+    }
+
+    private void confirmSimpanDataPeserta() {
+        final String add_nama_peserta = edit_add_nama_peserta.getText().toString().trim();
+        final String add_email_peserta = edit_add_email_peserta.getText().toString().trim();
+        final String add_hp_peserta = edit_add_hp_peserta.getText().toString().trim();
+        final String add_ins_peserta = edit_add_ins_peserta.getText().toString().trim();
+
+        //Confirmation altert dialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Insert Data");
+        builder.setMessage("Are you sure want to insert this data? " +
+                "\nNama      : " + add_nama_peserta +
+                "\nEmail     : " + add_email_peserta +
+                "\nNo.HP     : " + add_hp_peserta +
+                "\nInstansi  : " + add_ins_peserta);
+        builder.setNegativeButton("Cancel", null);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                simpanDataPeserta();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void simpanDataPeserta() {
